@@ -7,6 +7,7 @@ export default function Scoreboard(props) {
     <div>
       <p>Current Score: {props.score} </p>
       <p>Best Score: {props.highScore} </p>
+      <button onClick={props.resetScore}>Reset score</button>
     </div>
   );
 }
