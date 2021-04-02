@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Scoreboard from "./Scoreboard";
 import Cards from "./Cards";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import initializeDeck from "../helpers/initializeDeck";
@@ -14,22 +14,10 @@ function App() {
   const [highScore, setHighScore] = useState(0);
   const [selected, setSelected] = useState([]);
 
-  //on component did mount, initialize deck
-  useEffect(() => {
-    console.log("initializing card deck", cards);
-  });
-
-  //FOR TESTING TO SEE THE CARDS STATE
-  useEffect(() => {
-    console.log("change to card deck", cards);
-    console.log(cards[0].img);
-  }, [cards]);
-
   //checking if card has already been clicked (is in selected array)
   const handleClick = (id) => {
     setCards(shuffleDeck(cards));
     if (selected.includes(id)) {
-      console.log("already includes");
       resetGame();
     } else {
       addScore();
@@ -37,16 +25,10 @@ function App() {
     }
   };
 
-  //FOR TESTING TO SEE SELECTED ARRAY STATE
-  useEffect(() => {
-    console.log("change to selected array", selected);
-  }, [selected]);
-
   const addScore = () => {
     setScore(score + 1);
   };
 
-  //TO DO: need to clear the selected array once the score is reset
   const resetGame = () => {
     setScore(0);
     setSelected([]);
