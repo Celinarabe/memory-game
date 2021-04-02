@@ -1,7 +1,7 @@
 import React from "react";
 import "../css/Cards.css";
 
-export default function Cards(props) {
+function Cards(props) {
   const generateCards = () => {
     return props.cardDeck.map((value, index) => {
       return (
@@ -21,3 +21,5 @@ export default function Cards(props) {
     </div>
   );
 }
+
+export default Cards;
