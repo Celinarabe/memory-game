@@ -2,4 +2,5 @@ img {
   width: 15em;
   height: 15em;
   margin: 10px;
+  border-radius: 5%;
 }

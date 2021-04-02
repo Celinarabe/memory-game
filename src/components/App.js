@@ -1,54 +1,38 @@
 import React, { useState, useEffect } from "react";
 import Scoreboard from "./Scoreboard";
 import Cards from "./Cards";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../css/app.css";
 
 import initializeDeck from "../helpers/initializeDeck";
+import shuffleDeck from "../helpers/shuffleDeck";
 
 function App() {
-  //returns current state and async function to update state
-  const [cards, setCards] = useState([{}]);
+  //useState returns current state and async function to update state
+  const [cards, setCards] = useState(initializeDeck());
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [selected, setSelected] = useState([]);
 
-  //on component did mount, initialize deck
-  useEffect(() => {
-    setCards(initializeDeck());
-    console.log("card deck", cards);
-  }, []);
-
-  //FOR TESTING TO SEE THE CARDS
-  useEffect(() => {
-    console.log("card deck", cards);
-    console.log(cards[0].name);
-  }, [cards]);
-
-  //checking if card has already been clicked
+  //checking if card has already been clicked (is in selected array)
   const handleClick = (id) => {
+    setCards(shuffleDeck(cards));
     if (selected.includes(id)) {
-      console.log("already includes");
-      resetScore();
+      resetGame();
     } else {
       addScore();
+      setSelected((selected) => [...selected, id]);
     }
-    setSelected((selected) => [...selected, id]);
   };
-
-  //FOR TESTING TO SEE SELECTED ARRAY
-  useEffect(() => {
-    console.log(selected);
-  }, [selected]);
-
 
   const addScore = () => {
     setScore(score + 1);
   };
 
-  //TO DO: need to clear the selected array once the score is reset
-  const resetScore = () => {
+  const resetGame = () => {
     setScore(0);
+    setSelected([]);
   };
 
   //similar to the componentdidupdate function. the score updater is asynchronous so the state won't be updated until the next render
@@ -58,20 +42,27 @@ function App() {
     if (score > highScore) {
       setHighScore(score);
     }
-  }, [score]);
+  }, [score, highScore]);
 
   return (
     <div>
-      <Container className="text-center">
+      <Container className="text-center mt-5">
         <h1>Memory Card Game</h1>
-        <Scoreboard
-          score={score}
-          highScore={highScore}
-          resetScore={resetScore}
-        />
-        <p>{cards[0].name}</p>
+        <p>
+          This application puts your memory to the test. You are presented with
+          multiple images. The images get shuffled every time they are clicked.
+          You CAN NOT click on any image more than once or else your score
+          resets to zero. The main objective is to get the highest score as
+          possible.
+        </p>
 
-        <Cards addScore={addScore} handleClick={(id) => handleClick(id)} />
+        <Scoreboard score={score} highScore={highScore} resetGame={resetGame} />
+
+        <Cards
+          cardDeck={cards}
+          addScore={addScore}
+          handleClick={(id) => handleClick(id)}
+        />
       </Container>
     </div>
   );

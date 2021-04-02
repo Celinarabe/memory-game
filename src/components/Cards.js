@@ -1,18 +1,25 @@
 import React from "react";
 import "../css/Cards.css";
-import cactusArr from "../img/";
 
-export default function Cards(props) {
-
+function Cards(props) {
+  const generateCards = () => {
+    return props.cardDeck.map((value, index) => {
+      return (
+        <img
+          key={value.id}
+          src={value.img}
+          alt={`cactus${value.id}`}
+          onClick={() => props.handleClick(value.id)}
+        />
+      );
+    });
+  };
 
   return (
     <div>
-      <ul>
-        {cactusArr.map((value, index) => {
-          return <img key={index} src={value} alt={`cactus${index}`} onClick={() => props.handleClick(index)} />;
-        })}
-      </ul>
+      <ul>{generateCards()}</ul>
     </div>
   );
 }
- 
+
+export default Cards;
