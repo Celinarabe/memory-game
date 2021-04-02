@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import initializeDeck from "../helpers/initializeDeck";
 
 function App() {
-  //returns current state and async function to update state
+  //useState returns current state and async function to update state
   const [cards, setCards] = useState([{}]);
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
@@ -16,31 +16,30 @@ function App() {
   //on component did mount, initialize deck
   useEffect(() => {
     setCards(initializeDeck());
-    console.log("card deck", cards);
+    console.log("initializing card deck", cards);
   }, []);
 
-  //FOR TESTING TO SEE THE CARDS
+  //FOR TESTING TO SEE THE CARDS STATE
   useEffect(() => {
-    console.log("card deck", cards);
+    console.log("change to card deck", cards);
     console.log(cards[0].name);
   }, [cards]);
 
-  //checking if card has already been clicked
+  //checking if card has already been clicked (is in selected array)
   const handleClick = (id) => {
     if (selected.includes(id)) {
       console.log("already includes");
       resetScore();
     } else {
       addScore();
+      setSelected((selected) => [...selected, id]);
     }
-    setSelected((selected) => [...selected, id]);
   };
 
-  //FOR TESTING TO SEE SELECTED ARRAY
+  //FOR TESTING TO SEE SELECTED ARRAY STATE
   useEffect(() => {
-    console.log(selected);
+    console.log("change to selected array", selected);
   }, [selected]);
-
 
   const addScore = () => {
     setScore(score + 1);
@@ -70,7 +69,11 @@ function App() {
           resetScore={resetScore}
         />
 
-        <Cards cardDeck={cards}addScore={addScore} handleClick={(id) => handleClick(id)} />
+        <Cards
+          cardDeck={cards}
+          addScore={addScore}
+          handleClick={(id) => handleClick(id)}
+        />
       </Container>
     </div>
   );
