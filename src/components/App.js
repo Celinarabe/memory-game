@@ -5,31 +5,32 @@ import { Container, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import initializeDeck from "../helpers/initializeDeck";
+import shuffleDeck from "../helpers/shuffleDeck";
 
 function App() {
   //useState returns current state and async function to update state
-  const [cards, setCards] = useState([{}]);
+  const [cards, setCards] = useState(initializeDeck());
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [selected, setSelected] = useState([]);
 
   //on component did mount, initialize deck
   useEffect(() => {
-    setCards(initializeDeck());
     console.log("initializing card deck", cards);
-  }, []);
+  });
 
   //FOR TESTING TO SEE THE CARDS STATE
   useEffect(() => {
     console.log("change to card deck", cards);
-    console.log(cards[0].name);
+    console.log(cards[0].img);
   }, [cards]);
 
   //checking if card has already been clicked (is in selected array)
   const handleClick = (id) => {
+    setCards(shuffleDeck(cards));
     if (selected.includes(id)) {
       console.log("already includes");
-      resetScore();
+      resetGame();
     } else {
       addScore();
       setSelected((selected) => [...selected, id]);
@@ -46,8 +47,9 @@ function App() {
   };
 
   //TO DO: need to clear the selected array once the score is reset
-  const resetScore = () => {
+  const resetGame = () => {
     setScore(0);
+    setSelected([]);
   };
 
   //similar to the componentdidupdate function. the score updater is asynchronous so the state won't be updated until the next render
@@ -57,17 +59,13 @@ function App() {
     if (score > highScore) {
       setHighScore(score);
     }
-  }, [score]);
+  }, [score, highScore]);
 
   return (
     <div>
       <Container className="text-center">
         <h1>Memory Card Game</h1>
-        <Scoreboard
-          score={score}
-          highScore={highScore}
-          resetScore={resetScore}
-        />
+        <Scoreboard score={score} highScore={highScore} resetGame={resetGame} />
 
         <Cards
           cardDeck={cards}

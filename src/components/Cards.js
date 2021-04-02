@@ -9,7 +9,7 @@ export default function Cards(props) {
     <div>
       <ul>
       {props.cardDeck.map((value, index) => {
-          return <img key={value.id} src={value.name} alt={`cactus${value.id}`} onClick={() => props.handleClick(value.id)} />;
+          return <img key={value.id} src={value.img} alt={`cactus${value.id}`} onClick={() => props.handleClick(value.id)} />;
         })}
       </ul>
     </div>
