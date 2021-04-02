@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Scoreboard from "./Scoreboard";
 import Cards from "./Cards";
-import { Container } from "react-bootstrap";
+import { Container} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../css/app.css";
 
 import initializeDeck from "../helpers/initializeDeck";
 import shuffleDeck from "../helpers/shuffleDeck";
@@ -45,8 +46,10 @@ function App() {
 
   return (
     <div>
-      <Container className="text-center">
+      <Container className="text-center mt-5">
         <h1>Memory Card Game</h1>
+        <p>This application puts your memory to the test. You are presented with multiple images. The images get shuffled every time they are clicked. You CAN NOT click on any image more than once or else your score resets to zero. The main objective is to get the highest score as possible.</p>
+
         <Scoreboard score={score} highScore={highScore} resetGame={resetGame} />
 
         <Cards
