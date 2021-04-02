@@ -6,7 +6,6 @@ import cactusArr from "../img/";
 //card object: id and name (full src path)
 
 export default function initializeDeck() {
-  console.log("this is being ran");
   let id = 0;
   let cardDeck = [];
 
