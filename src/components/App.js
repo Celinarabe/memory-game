@@ -69,9 +69,8 @@ function App() {
           highScore={highScore}
           resetScore={resetScore}
         />
-        <p>{cards[0].name}</p>
 
-        <Cards addScore={addScore} handleClick={(id) => handleClick(id)} />
+        <Cards cardDeck={cards}addScore={addScore} handleClick={(id) => handleClick(id)} />
       </Container>
     </div>
   );

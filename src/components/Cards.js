@@ -8,8 +8,8 @@ export default function Cards(props) {
   return (
     <div>
       <ul>
-        {cactusArr.map((value, index) => {
-          return <img key={index} src={value} alt={`cactus${index}`} onClick={() => props.handleClick(index)} />;
+      {props.cardDeck.map((value, index) => {
+          return <img key={value.id} src={value.name} alt={`cactus${value.id}`} onClick={() => props.handleClick(value.id)} />;
         })}
       </ul>
     </div>
