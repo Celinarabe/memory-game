@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Scoreboard from "./Scoreboard";
 import Cards from "./Cards";
 import { Container } from "react-bootstrap";
+import Button from 'react-bootstrap/Button'
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/app.css";
 
@@ -35,6 +36,11 @@ function App() {
     setSelected([]);
   };
 
+  const resetAllGame = () => {
+    resetGame();
+    setHighScore(0);
+  }
+
   //similar to the componentdidupdate function. the score updater is asynchronous so the state won't be updated until the next render
   //state updates will reflect in the next re-render
   //if you want to perform an action based on state change, you need to use useEffect hook
@@ -46,7 +52,7 @@ function App() {
 
   return (
     <div>
-      <Container className="text-center mt-5">
+      <Container className="text-center mt-4 full-height">
         <h1>Memory Card Game</h1>
         <p>
           This application puts your memory to the test. You are presented with
@@ -57,6 +63,7 @@ function App() {
         </p>
 
         <Scoreboard score={score} highScore={highScore} resetGame={resetGame} />
+        <Button variant="custom"onClick={resetAllGame}>Reset Game</Button>
 
         <Cards
           cardDeck={cards}
