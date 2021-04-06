@@ -8,8 +8,8 @@ import "../css/app.css";
 import initializeDeck from "../helpers/initializeDeck";
 import shuffleDeck from "../helpers/shuffleDeck";
 
-function App() {
-  //useState returns current state and async function to update state
+const App = () => {
+  //useState returns current state and function to update state
   const [cards, setCards] = useState(initializeDeck());
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
@@ -66,6 +66,6 @@ function App() {
       </Container>
     </div>
   );
-}
+};
 
 export default App;
