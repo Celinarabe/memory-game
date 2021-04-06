@@ -63,7 +63,7 @@ function App() {
         </p>
 
         <Scoreboard score={score} highScore={highScore} resetGame={resetGame} />
-        <Button variant="custom"onClick={resetAllGame}>Reset Game</Button>
+        <Button className="mb-3"variant="custom"onClick={resetAllGame}>Reset Game</Button>
 
         <Cards
           cardDeck={cards}
