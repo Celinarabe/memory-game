@@ -1,6 +1,10 @@
+html, body{
+  height: 100vh;
+}
+
 img {
-  width: 15em;
-  height: 15em;
+  width: 50%;
+  height: 15vh;
   margin: 10px;
   border-radius: 5%;
 }
